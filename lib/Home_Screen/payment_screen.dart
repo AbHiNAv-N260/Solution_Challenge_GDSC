@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import './/Payment/pay.dart';
 class PaymentScreen extends StatelessWidget {
   final String? selectedRole;
 
@@ -27,9 +27,15 @@ class PaymentScreen extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 if (selectedRole == 'Donor') {
-                  // Add donation logic for the donor
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => NewPage()));
                 } else if (selectedRole == 'Receiver') {
                   // Add receiving donation logic for the receiver
+
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => NewPage()));
                 }
               },
               child: Text(

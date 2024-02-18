@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:solution_challege/Home_Screen/account_info.dart';
+import 'package:solution_challege/Home_Screen/language_selection.dart';
+import 'package:solution_challege/Home_Screen/notification_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   @override
@@ -11,46 +14,91 @@ class SettingsScreen extends StatelessWidget {
           style: TextStyle(fontFamily: 'Pacifico'),
         ),
       ),
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(height: 20),
             Text(
               'App Settings',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black, fontFamily: 'Montserrat'),
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+                fontFamily: 'Montserrat',
+              ),
             ),
             SizedBox(height: 20),
-            ListTile(
-              leading: Icon(Icons.account_circle),
-              title: Text('Account', style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: 'Montserrat')),
+            SettingsTile(
+              leadingIcon: Icons.account_circle,
+              title: 'Account',
               onTap: () {
-                // Navigate to account settings
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AccountInfoPage()),
+                );
               },
             ),
-            ListTile(
-              leading: Icon(Icons.notifications),
-              title: Text('Notifications', style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: 'Montserrat')),
+            SettingsTile(
+              leadingIcon: Icons.notifications,
+              title: 'Notifications',
               onTap: () {
-                // Navigate to notification settings
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => NotificationScreen()),
+                );
               },
             ),
-            ListTile(
-              leading: Icon(Icons.security),
-              title: Text('Privacy & Security', style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: 'Montserrat')),
+            SettingsTile(
+              leadingIcon: Icons.security,
+              title: 'Privacy & Security',
               onTap: () {
                 // Navigate to privacy & security settings
               },
             ),
-            ListTile(
-              leading: Icon(Icons.language),
-              title: Text('Language', style: TextStyle(fontSize: 18, color: Colors.black, fontFamily: 'Montserrat')),
+            SettingsTile(
+              leadingIcon: Icons.language,
+              title: 'Language',
               onTap: () {
-                // Navigate to language settings
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => LanguageSelectionPage()),
+                );
               },
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class SettingsTile extends StatelessWidget {
+  final IconData leadingIcon;
+  final String title;
+  final VoidCallback onTap;
+
+  const SettingsTile({
+    required this.leadingIcon,
+    required this.title,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: Icon(leadingIcon),
+      title: Text(
+        title,
+        style: TextStyle(
+          fontSize: 18,
+          color: Colors.black,
+          fontFamily: 'Montserrat',
+        ),
+      ),
+      onTap: onTap,
     );
   }
 }

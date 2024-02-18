@@ -19,7 +19,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   Future<void> _registerWithEmailPassword(String email, String password) async {
     try {
-      final UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+      final UserCredential userCredential =
+          await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -43,19 +44,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   Future<void> _registerWithGoogle() async {
     try {
-      final GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
-      final GoogleSignInAuthentication googleSignInAuthentication =
-          await googleSignInAccount!.authentication;
-      final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleSignInAuthentication.accessToken,
-        idToken: googleSignInAuthentication.idToken,
-      );
-      final UserCredential authResult = await _auth.signInWithCredential(credential);
-      if (authResult.user != null) {
-        // Navigate to home page after successful registration/sign-in
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (BuildContext) => HomePage()),
+      final GoogleSignInAccount? googleSignInAccount =
+          await _googleSignIn.signIn();
+      if (googleSignInAccount != null) {
+        final GoogleSignInAuthentication googleSignInAuthentication =
+            await googleSignInAccount.authentication;
+        final AuthCredential credential = GoogleAuthProvider.credential(
+          accessToken: googleSignInAuthentication.accessToken,
+          idToken: googleSignInAuthentication.idToken,
+        );
+        final UserCredential authResult =
+            await _auth.signInWithCredential(credential);
+        if (authResult.user != null) {
+          // Navigate to home page after successful registration/sign-in
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (BuildContext) => HomePage()),
+          );
+        }
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to sign in with Google.'),
+          ),
         );
       }
     } catch (e) {
@@ -63,7 +74,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       print('Failed to register with Google: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Failed to register with Google. Please try again later.'),
+          content:
+              Text('Failed to register with Google. Please try again later.'),
         ),
       );
     }
@@ -89,7 +101,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       print('Failed to register with Facebook: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Failed to register with Facebook. Please try again later.'),
+          content:
+              Text('Failed to register with Facebook. Please try again later.'),
         ),
       );
     }
@@ -157,7 +170,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   IconButton(
                     onPressed: () {
-                      // Sign up with Microsoft logic here
+                      // Implement sign up with Microsoft logic here
                     },
                     icon: Image.asset(
                       'assets/microsoft_icon.png',

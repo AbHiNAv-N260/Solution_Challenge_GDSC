@@ -31,10 +31,11 @@ class _SignInDetailState extends State<SignInDetail> {
       User? user = userCredential.user;
       if (user != null) {
         // Navigate to home page
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => HomePage()),
-        );
+Navigator.pushReplacement(
+  context,
+  MaterialPageRoute(builder: (context) => HomePage(selectedRole: widget.selectedRole)),
+);
+
       }
     } catch (e) {
       // Handle sign-in errors
@@ -44,21 +45,30 @@ class _SignInDetailState extends State<SignInDetail> {
 
   Future<void> _signInWithGoogle() async {
     try {
-      final GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
+      final GoogleSignInAccount? googleSignInAccount =
+          await _googleSignIn.signIn();
       if (googleSignInAccount != null) {
-        final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+        final GoogleSignInAuthentication googleSignInAuthentication =
+            await googleSignInAccount.authentication;
         final AuthCredential credential = GoogleAuthProvider.credential(
           accessToken: googleSignInAuthentication.accessToken,
           idToken: googleSignInAuthentication.idToken,
         );
-        final UserCredential userCredential = await _auth.signInWithCredential(credential);
+        final UserCredential userCredential =
+            await _auth.signInWithCredential(credential);
         User? user = userCredential.user;
         if (user != null) {
           // Check if the user is already in the Firestore users collection
-          final userDoc = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+          final userDoc = await FirebaseFirestore.instance
+              .collection('users')
+              .doc(user.uid)
+              .get();
           if (!userDoc.exists) {
             // User not in Firestore, add user information to Firestore
-            await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+            await FirebaseFirestore.instance
+                .collection('users')
+                .doc(user.uid)
+                .set({
               'email': user.email,
               'displayName': user.displayName,
               'photoURL': user.photoURL,
@@ -81,15 +91,23 @@ class _SignInDetailState extends State<SignInDetail> {
     try {
       final LoginResult result = await FacebookAuth.instance.login();
       if (result.status == LoginStatus.success) {
-        final AuthCredential credential = FacebookAuthProvider.credential(result.accessToken!.token);
-        final UserCredential userCredential = await _auth.signInWithCredential(credential);
+        final AuthCredential credential =
+            FacebookAuthProvider.credential(result.accessToken!.token);
+        final UserCredential userCredential =
+            await _auth.signInWithCredential(credential);
         User? user = userCredential.user;
         if (user != null) {
           // Check if the user is already in the Firestore users collection
-          final userDoc = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+          final userDoc = await FirebaseFirestore.instance
+              .collection('users')
+              .doc(user.uid)
+              .get();
           if (!userDoc.exists) {
             // User not in Firestore, add user information to Firestore
-            await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+            await FirebaseFirestore.instance
+                .collection('users')
+                .doc(user.uid)
+                .set({
               'email': user.email,
               'displayName': user.displayName,
               'photoURL': user.photoURL,

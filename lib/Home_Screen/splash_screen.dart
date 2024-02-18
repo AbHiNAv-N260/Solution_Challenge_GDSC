@@ -78,7 +78,7 @@ class _SplashScreenState extends State<SplashScreen>
               return Opacity(
                 opacity: _fadeAnimation.value,
                 child: Text(
-                  'DONATION APP',
+                  'Donate',
                   style: GoogleFonts.pacifico(
                     color: Colors.white,
                     fontSize: 60,

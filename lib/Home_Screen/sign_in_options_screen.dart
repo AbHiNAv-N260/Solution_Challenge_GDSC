@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:solution_challege/Home_Screen/home_page.dart';
 import 'package:solution_challege/Home_Screen/sign_in_details_screen.dart';
 
 class SignInOptionScreen extends StatefulWidget {
@@ -16,54 +15,94 @@ class _SignInOptionScreenState extends State<SignInOptionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-                backgroundColor: Colors.blue,
+        backgroundColor: Colors.blue,
         title: Text('Choose Role'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              height: 100,
-              width: 300,
+              height: 200,
+              width: 320,
               child: ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    _selectedRole = 'Donor'; // Set the selected role as Donor
-                  });
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext) => SignInDetail(_selectedRole)));
-                },
-                child: Text(
-                  'Sign in as Donor',
-                  style: TextStyle(fontSize: 28),
+                onPressed: () => _navigateToSignInDetail(context, 'Donor'),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    side: BorderSide(color: Colors.blue),
+                  ),
+                ),
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.asset(
+                          'assets/rich_man_image.jpg',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    Center(
+                      child: Text(
+                        'Sign in as Donor',
+                        style: TextStyle(fontSize: 24, color: Colors.white),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
             SizedBox(height: 20),
             SizedBox(
-              height: 100,
-              width: 300,
+              height: 200,
+              width: 320,
               child: ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    _selectedRole =
-                        'Receiver'; // Set the selected role as Receiver
-                  });
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext) => SignInDetail(_selectedRole)));
-                },
-                child:
-                    Text('Sign in as Receiver', style: TextStyle(fontSize: 28)),
+                onPressed: () => _navigateToSignInDetail(context, 'Receiver'),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    side: BorderSide(color: Colors.blue),
+                  ),
+                ),
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.asset(
+                          'assets/poor_man_image.jpg',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    Center(
+                      child: Text(
+                        'Sign in as Receiver',
+                        style: TextStyle(fontSize: 24, color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  void _navigateToSignInDetail(BuildContext context, String role) {
+    setState(() {
+      _selectedRole = role;
+    });
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SignInDetail(_selectedRole),
       ),
     );
   }
