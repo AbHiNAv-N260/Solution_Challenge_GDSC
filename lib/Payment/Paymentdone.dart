@@ -30,13 +30,13 @@ class _PaymentdoneState extends State<Paymentdone> {
               ),
             ),
             SizedBox(height: 10),
-ElevatedButton(
-  onPressed: () {
-    Navigator.of(context).popUntil((route) => route.isFirst);
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
-  },
-  child: Text('Back to Home'),
-),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (BuildContext) => HomePage()));
+              },
+              child: Text('Back to Home'),
+            ),
           ],
         ),
       ),

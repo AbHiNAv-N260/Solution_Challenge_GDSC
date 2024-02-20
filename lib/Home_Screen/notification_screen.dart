@@ -14,6 +14,7 @@ class NotificationScreen extends StatelessWidget {
 
   PreferredSizeWidget appBar() {
     return AppBar(
+      foregroundColor: Colors.white,
       backgroundColor: Colors.blue, // Set background color to blue
       title: Text('Notifications'), // Updated title
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './/Payment/pay.dart';
+
 class PaymentScreen extends StatelessWidget {
   final String? selectedRole;
 
@@ -9,6 +10,7 @@ class PaymentScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.white,
         backgroundColor: Colors.blue,
         title: Text(
           'Payment',
@@ -20,26 +22,32 @@ class PaymentScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              selectedRole == 'Donor' ? 'Welcome, Donor!' : 'Welcome, Receiver!',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black, fontFamily: 'Montserrat'),
+              selectedRole == 'Donor'
+                  ? 'Welcome, Donor!'
+                  : 'Welcome, Receiver!',
+              style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                  fontFamily: 'Montserrat'),
             ),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 if (selectedRole == 'Donor') {
-                  Navigator.push(
-                      context,
+                  Navigator.push(context,
                       MaterialPageRoute(builder: (context) => NewPage()));
                 } else if (selectedRole == 'Receiver') {
                   // Add receiving donation logic for the receiver
 
-                  Navigator.push(
-                      context,
+                  Navigator.push(context,
                       MaterialPageRoute(builder: (context) => NewPage()));
                 }
               },
               child: Text(
-                selectedRole == 'Donor' ? 'Make a Donation' : 'Receive a Donation',
+                selectedRole == 'Donor'
+                    ? 'Make a Donation'
+                    : 'Receive a Donation',
                 style: TextStyle(fontSize: 16),
               ),
             ),

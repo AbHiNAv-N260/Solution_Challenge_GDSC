@@ -31,11 +31,12 @@ class _SignInDetailState extends State<SignInDetail> {
       User? user = userCredential.user;
       if (user != null) {
         // Navigate to home page
-Navigator.pushReplacement(
-  context,
-  MaterialPageRoute(builder: (context) => HomePage(selectedRole: widget.selectedRole)),
-);
-
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  HomePage(selectedRole: widget.selectedRole)),
+        );
       }
     } catch (e) {
       // Handle sign-in errors
@@ -130,6 +131,7 @@ Navigator.pushReplacement(
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.white,
         backgroundColor: Colors.blue,
         title: Text("Sign In"),
       ),

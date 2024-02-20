@@ -7,6 +7,7 @@ import 'package:solution_challege/Home_Screen/sign_in_options_screen.dart';
 
 class HomePage extends StatelessWidget {
   final String? selectedRole;
+  final double currentDonationAmount = 500.0; // Example: Set the current donation amount here
 
   const HomePage({Key? key, this.selectedRole}) : super(key: key);
 
@@ -52,11 +53,43 @@ class HomePage extends StatelessWidget {
             child: ListView(
               children: [
                 SizedBox(height: 20),
-                AspectRatio(
-                  aspectRatio: 16 / 9, // Adjust the aspect ratio as needed
-                  child: Image.asset(
-                    "assets/download.jpg",
-                    fit: BoxFit.cover, // Ensure the image covers the entire space
+                Image.asset(
+                  "assets/homeimg.jpg", // Updated image asset path
+                  fit: BoxFit.cover, // Ensure the image covers the entire space
+                ),
+                SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.blueAccent), // Adding border
+                      borderRadius: BorderRadius.circular(10), // Rounded corners
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Current Donation Deposit:',
+                            style: TextStyle(
+                              color: Color(0xFF6A1B9A),
+                              fontSize: 35,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Montserrat', // Custom font
+                            ),
+                          ),
+                          Text(
+                            '\$$currentDonationAmount', // Display current donation amount
+                            style: TextStyle(
+                              color:  Color(0xFF009688),
+                              fontSize: 35,
+                              fontFamily: 'Montserrat', // Custom font
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
                 SizedBox(height: 20),
@@ -67,7 +100,7 @@ class HomePage extends StatelessWidget {
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w900,
                       fontFamily: 'Montserrat', // Custom font
                     ),
                   ),

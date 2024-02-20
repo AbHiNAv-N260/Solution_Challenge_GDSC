@@ -15,78 +15,95 @@ class _SignInOptionScreenState extends State<SignInOptionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        foregroundColor: Colors.white,
+        backgroundColor: Colors.blue, // Use a consistent color scheme
         title: Text('Choose Role'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
-              height: 200,
-              width: 320,
-              child: ElevatedButton(
-                onPressed: () => _navigateToSignInDetail(context, 'Donor'),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    side: BorderSide(color: Colors.blue),
-                  ),
-                ),
-                child: Stack(
-                  children: [
-                    Positioned.fill(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Image.asset(
-                          'assets/rich_man_image.jpg',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    Center(
-                      child: Text(
-                        'Sign in as Donor',
-                        style: TextStyle(fontSize: 24, color: Colors.white),
-                      ),
-                    ),
-                  ],
+            buildSignInButton(
+              'Donor',
+              'assets/rich_man_image.jpg',
+              'Sign in as Donor',
+              context,
+            ),
+            SizedBox(height: 20),
+            buildSignInButton(
+              'Receiver',
+              'assets/poor_man_image.jpg',
+              'Sign in as Receiver',
+              context,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildSignInButton(
+      String role, String imagePath, String buttonText, BuildContext context) {
+    return SizedBox(
+      height: 200,
+      width: 320,
+      child: ElevatedButton(
+        onPressed: () => _navigateToSignInDetail(context, role),
+        style: ElevatedButton.styleFrom(
+          primary: Colors.white,
+          onPrimary: Colors.black,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          elevation: 5,
+          shadowColor: Colors.grey
+              .withOpacity(0.5), // Add shadow for a raised appearance
+        ),
+        child: Stack(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Color(0xFF4CAF50),
+                    Color(0xFF388E3C)
+                  ], // Apply subtle gradients
                 ),
               ),
             ),
-            SizedBox(height: 20),
-            SizedBox(
-              height: 200,
-              width: 320,
-              child: ElevatedButton(
-                onPressed: () => _navigateToSignInDetail(context, 'Receiver'),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    side: BorderSide(color: Colors.blue),
+            Positioned.fill(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.asset(
+                  imagePath,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    role == 'Donor' ? Icons.monetization_on : Icons.favorite,
+                    color: Colors.white,
+                    size: 40,
                   ),
-                ),
-                child: Stack(
-                  children: [
-                    Positioned.fill(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Image.asset(
-                          'assets/poor_man_image.jpg',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+                  SizedBox(height: 10),
+                  Text(
+                    buttonText,
+                    style: TextStyle(
+                      fontSize: 24,
+                      color: Colors.white,
+                      fontFamily:
+                          'Roboto', // Use custom fonts for a unique style
+                      fontWeight: FontWeight.bold,
                     ),
-                    Center(
-                      child: Text(
-                        'Sign in as Receiver',
-                        style: TextStyle(fontSize: 24, color: Colors.white),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ],
